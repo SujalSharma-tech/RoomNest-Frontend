@@ -1,5 +1,5 @@
-export const HOST = "http://localhost/roomnestserver/index.php";
-// export const HOST = "https://api.tradenest.tech";
+// export const HOST = "http://localhost/roomnestserver/index.php";
+export const HOST = "https://api.roomnest.me/index.php";
 export const AUTH_ROUTES = "api/v1/user";
 export const SIGNUP_ROUTE = `${AUTH_ROUTES}/register`;
 export const LOGIN_ROUTE = `${AUTH_ROUTES}/login`;
