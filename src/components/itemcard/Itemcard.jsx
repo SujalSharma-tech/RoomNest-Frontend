@@ -12,7 +12,7 @@ const Itemcard = ({ property }) => {
   if(savedProperties && savedProperties.length>0){
   const isSaved = savedProperties?.includes(property.id);
   }
-  const image = JSON.parse(property?.additional_photos)[0];
+  const image = JSON.parse(property?.additional_photos)?.[0];
   const toggleSaveProperty = async (e, propertyId) => {
     e.preventDefault();
     e.stopPropagation();
