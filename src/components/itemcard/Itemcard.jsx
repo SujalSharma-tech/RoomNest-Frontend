@@ -9,8 +9,9 @@ import { TOGGLE_STATUS } from "../../utils/constants";
 
 const Itemcard = ({ property }) => {
   const { savedProperties, setSavedProperties, userInfo } = useAppStore();
-
+  if(savedProperties && savedProperties.length>0){
   const isSaved = savedProperties?.includes(property.id);
+  }
   const image = JSON.parse(property?.additional_photos)[0];
   const toggleSaveProperty = async (e, propertyId) => {
     e.preventDefault();
