@@ -1,0 +1,90 @@
+.recommendation-slider {
+  text-align: center;
+  padding: 20px;
+  background-color: #f9f9f9;
+
+  .section-title {
+    font-size: 2em;
+    font-weight: bold;
+    color: #1c3a57;
+    margin-bottom: 20px;
+  }
+
+  .slider-container {
+    display: flex;
+    transition: transform 0.5s ease;
+    will-change: transform;
+
+    .card {
+      flex: 1 0 50%; // Two cards per view
+      max-width: 50%;
+      margin: 10px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: transform 0.3s ease-in-out;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      .card-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .card-content {
+        padding: 15px;
+        text-align: left;
+        width: 100%;
+
+        .card-title {
+          font-size: 1.2em;
+          font-weight: bold;
+          color: #1c3a57;
+          margin-bottom: 5px;
+        }
+
+        .card-category {
+          font-size: 0.9em;
+          color: #6c757d;
+        }
+
+        .card-price {
+          font-size: 1.1em;
+          font-weight: bold;
+          color: #000;
+          margin-top: 8px;
+        }
+
+        .card-actions {
+          margin-top: 10px;
+          display: flex;
+          gap: 10px;
+
+          .share-btn,
+          .save-btn {
+            background-color: #e0f7ea;
+            border: none;
+            padding: 8px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #2e856e;
+            transition: background-color 0.3s;
+
+            &:hover {
+              background-color: #2e856e;
+              color: #fff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

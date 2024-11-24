@@ -1,0 +1,135 @@
+@use "../../responsive.scss" as device;
+
+.navbar-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f5f5f5;
+  padding: 10px 20px;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #4caf7b;
+
+    span {
+      color: #444;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    list-style: none;
+
+    li {
+      margin: 0 15px;
+    }
+
+    a {
+      color: #666;
+      text-decoration: none;
+      font-size: 1rem;
+      position: relative;
+      transition: transform 0.3s ease, color 0.3s ease;
+
+      &:hover {
+        color: #4caf7b;
+      }
+
+      &.active {
+        color: #4caf7b;
+        transform: translateY(-3px); // Jump effect
+
+        &::after {
+          content: "";
+          display: block;
+          margin: auto;
+          height: 2px;
+          width: 5px;
+          background: #4caf7b;
+          transition: width 0.3s;
+        }
+      }
+    }
+    @include device.sm {
+      display: none;
+    }
+  }
+
+  .user-profile-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 10px;
+
+    &:hover {
+      background-color: gainsboro;
+    }
+
+    .icon {
+      width: 30px;
+      border-radius: 50%;
+      display: flex;
+
+      img {
+        width: 100%;
+        background: none;
+      }
+    }
+
+    .user-dropdown-options {
+      position: absolute;
+      display: flex;
+      z-index: 2;
+      flex-direction: column;
+      background-color: #fff;
+      width: 150px;
+      top: 100%;
+      left: -30px;
+      box-shadow: 1px 1px 11px rgba(0, 0, 0, 0.5);
+
+      a,
+      div {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+        color: black;
+        font-weight: bold;
+        transition: all 0.4s ease;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #ccc;
+        }
+
+        @include device.sm {
+          display: initial;
+        }
+      }
+    }
+  }
+
+  .auth-links {
+    display: flex;
+    align-items: center;
+
+    .signin {
+      margin-right: 15px;
+      color: #4caf7b;
+      text-decoration: none;
+    }
+
+    .login-btn {
+      background-color: #4caf7b;
+      color: white;
+      padding: 5px 15px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+  }
+}

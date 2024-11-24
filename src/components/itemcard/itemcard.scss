@@ -1,0 +1,128 @@
+@use "../../responsive.scss" as device;
+.f-listing {
+  box-shadow: 1px 1px 19px -3px rgba(0, 0, 0, 0.32);
+  display: flex;
+  flex-direction: column;
+  width: 290px;
+  padding: 8px 12px;
+  margin-bottom: 20px;
+  //   border: 1px solid;
+  border-radius: 12px;
+  .listing-header {
+    display: flex;
+
+    justify-content: space-between;
+  }
+
+  @include device.lg {
+    width: 230px;
+  }
+
+  @include device.sm {
+    width: 170px;
+    padding: 4px 8px;
+  }
+
+  @include device.xs {
+    // width: 48%;
+    // width: 140px;
+  }
+
+  .item-image {
+    width: 264.55px;
+    height: 264.55px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 12px;
+    }
+
+    @include device.lg {
+      width: 204.55px;
+      height: 204.55px;
+    }
+
+    @include device.sm {
+      width: 154.55px;
+      height: 154.55px;
+    }
+
+    @include device.xs {
+      width: 100%;
+      height: 150px;
+    }
+  }
+  .user-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    p {
+      font-size: 14px;
+
+      @include device.sm {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .listing-title-box {
+    max-width: 100%;
+    overflow: hidden;
+    white-space: pre;
+    p {
+      text-overflow: ellipsis;
+      overflow: hidden;
+    }
+    .listing-title {
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 18px;
+
+      @include device.sm {
+        font-size: 14px;
+      }
+
+      @include device.xs {
+        font-size: 12px;
+      }
+    }
+  }
+
+  .item-category {
+    font-size: 14px;
+    color: #6c757d;
+    @include device.sm {
+      font-size: 12px;
+    }
+  }
+
+  .item-price {
+    font-size: 20px;
+    font-weight: 600;
+    @include device.xs {
+      font-size: 16px;
+    }
+  }
+
+  .listing-footer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .listing-social {
+    display: flex;
+    gap: 2px;
+    button {
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}

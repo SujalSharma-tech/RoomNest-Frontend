@@ -1,0 +1,14 @@
+@use "../../responsive.scss" as device;
+
+.savedlistings {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+
+  .listing-container {
+    max-width: 800px;
+  }
+}

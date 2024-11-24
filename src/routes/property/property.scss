@@ -1,0 +1,106 @@
+@use "../../responsive.scss" as device;
+
+.property {
+  display: flex;
+
+  margin-top: 50px;
+  margin-bottom: 50px;
+
+  .left {
+    flex: 4;
+    padding: 10px;
+
+    .filter-container {
+      display: flex;
+
+      .input-section {
+        width: 100%;
+        .location {
+          input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+          }
+        }
+      }
+
+      .filter-types {
+        .property-type {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          align-items: center;
+
+          .type {
+            select {
+              width: 100%;
+              height: 40px;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              margin-bottom: 10px;
+              color: black;
+            }
+          }
+
+          .bedrooms {
+            input {
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              margin-bottom: 10px;
+            }
+
+            @include device.sm {
+              width: 40%;
+            }
+          }
+
+          .price {
+            display: flex;
+            gap: 10px;
+            input {
+              width: 100%;
+              padding: 10px;
+              border-radius: 5px;
+              border: 1px solid #ccc;
+              margin-bottom: 10px;
+            }
+          }
+
+          .search {
+            button {
+              width: 100%;
+              padding: 10px;
+              background-color: #4caf7b;
+              color: white;
+              font-weight: bolder;
+              border: none;
+              margin-top: 10px;
+              cursor: pointer;
+            }
+            @include device.sm {
+              width: 100%;
+              button {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .right {
+    flex: 2;
+    background-color: rgb(254, 219, 225);
+    height: 100vh;
+
+    @include device.sm {
+      display: none;
+    }
+  }
+}

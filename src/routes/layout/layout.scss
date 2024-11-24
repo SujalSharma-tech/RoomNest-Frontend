@@ -1,0 +1,36 @@
+@use "../../responsive.scss" as device;
+
+.layout {
+  height: 100vh;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+
+  @include device.lg {
+    // background-color: rgb(199, 199, 255);
+    max-width: 1260px;
+  }
+
+  @include device.md {
+    // background-color: rgb(198, 249, 198);
+    max-width: 768px;
+  }
+
+  @include device.sm {
+    // background-color: rgb(246, 189, 189);
+    max-width: 640px;
+  }
+
+  @include device.xs {
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+
+  .content {
+    // background-color: blueviolet;
+    flex: 1;
+  }
+}

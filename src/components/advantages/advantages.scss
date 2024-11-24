@@ -1,0 +1,103 @@
+@use "../../responsive.scss" as device;
+
+.advantages-section {
+  background-color: #f8f9fa;
+  //   padding: 40px 20px;
+  //   text-align: center;
+  max-width: 1200px;
+  margin-bottom: 30px;
+  //   margin: auto;
+
+  .section-header {
+    margin-bottom: 40px;
+    margin-top: 40px;
+    background-color: #fff;
+
+    .highlight {
+      display: inline-block;
+      background-color: #e0f7ea;
+      color: #2e856e;
+      padding: 4px 12px;
+      //   font-size: 0.9em;
+      border-radius: 4px;
+      font-weight: bold;
+      text-transform: uppercase;
+
+      @include device.sm {
+        font-size: 14px;
+      }
+    }
+
+    h2 {
+      font-size: 2em;
+      font-weight: bold;
+      color: #1c3a57;
+      //   margin-top: 10px;
+
+      @include device.sm {
+        font-size: 24px;
+      }
+    }
+  }
+
+  .advantages-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding-bottom: 20px;
+
+    .advantage-item {
+      background-color: #fff;
+      flex: 1 1 30%;
+      max-width: 30%;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      .icon {
+        font-size: 2em;
+        color: #2e856e;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-size: 1.2em;
+        font-weight: bold;
+        color: #1c3a57;
+        margin: 0 0 10px;
+      }
+
+      p {
+        font-size: 0.95em;
+        color: #6c757d;
+        text-align: center;
+      }
+    }
+  }
+
+  // Responsive styles using mixins
+  @include device.md {
+    .advantages-list {
+      .advantage-item {
+        flex: 1 1 45%;
+        max-width: 45%;
+      }
+    }
+  }
+
+  @include device.sm {
+    .advantages-list {
+      flex-direction: column;
+
+      .advantage-item {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+  }
+}

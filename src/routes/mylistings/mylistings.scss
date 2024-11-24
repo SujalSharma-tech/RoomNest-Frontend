@@ -1,0 +1,102 @@
+.listing-page {
+  padding: 20px;
+
+  h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .listings-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+
+    .listing-card {
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      background-color: #fff;
+      transition: transform 0.2s;
+
+      &:hover {
+        transform: translateY(-5px);
+      }
+
+      .listing-image {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+      }
+
+      .listing-info {
+        padding: 15px;
+
+        h2 {
+          font-size: 1.5rem;
+          margin: 10px 0;
+          color: #333;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+        }
+
+        p {
+          margin: 5px 0;
+          font-size: 1rem;
+          color: #666;
+
+          &:nth-of-type(2) {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #f57c00;
+          }
+        }
+      }
+
+      .listing-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 15px;
+        background-color: #f9f9f9;
+        border-top: 1px solid #eee;
+
+        button {
+          padding: 8px 12px;
+          font-size: 0.9rem;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+          transition: background-color 0.2s;
+
+          &.toggle-status {
+            background-color: #4caf50;
+            color: #fff;
+
+            &.inactive {
+              background-color: #f44336;
+            }
+          }
+
+          &.edit-listing {
+            background-color: #2196f3;
+            color: #fff;
+          }
+
+          &.delete-listing {
+            background-color: #ff5722;
+            color: #fff;
+          }
+
+          &:hover {
+            filter: brightness(1.1);
+          }
+        }
+      }
+    }
+  }
+}

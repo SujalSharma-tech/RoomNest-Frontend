@@ -1,0 +1,93 @@
+@use "../../responsive.scss" as device;
+
+.heading-contact {
+  width: 40%;
+  margin-left: 50px;
+  padding-left: 20px;
+
+  @include device.md {
+    margin-left: 20px;
+  }
+
+  @include device.sm {
+    margin-left: 0;
+    padding-left: 0;
+    width: auto;
+    padding: 0 10px;
+  }
+  h1 {
+    font-size: 40px;
+    span {
+      color: #2e856e;
+    }
+  }
+
+  p {
+    font-size: 15px;
+  }
+}
+
+.getintouch {
+  // text-align: center;
+  margin-top: 20px;
+  display: flex;
+  height: 250px;
+  background-color: #fff;
+
+  @include device.sm {
+    height: auto;
+  }
+
+  .left-textarea {
+    display: none;
+
+    @include device.sm {
+      display: initial;
+      width: 80%;
+      height: 42%;
+      padding: 10px;
+      height: 200px;
+    }
+  }
+
+  .left {
+    flex: 1;
+
+    .input-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+      align-items: center;
+      input {
+        width: 80%;
+        padding: 10px 12px;
+      }
+
+      button {
+        width: 80%;
+        padding: 10px 12px;
+        background-color: #dd5471;
+        color: white;
+        font-weight: bolder;
+        border: none;
+      }
+    }
+  }
+
+  .right {
+    flex: 1;
+    @include device.sm {
+      display: none;
+    }
+
+    textarea {
+      width: 80%;
+      height: 42%;
+      margin-top: 125px;
+      padding: 10px;
+      height: 74%;
+      margin-top: 20px;
+    }
+  }
+}
