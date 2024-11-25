@@ -4,8 +4,10 @@ const HeroSection = () => {
   return (
     <div className="herosection">
       <div className="hero-text">
-        <h1 className="title">Find Your Dream Home</h1>
-        <p>Get the best offers from top real estate agents in the USA</p>
+        <h1 className="title">
+          Find your happy place with <br /> RoomNest
+        </h1>
+        <p>Find your perfect space, right next to campus</p>
       </div>
       <Herofilter />
     </div>

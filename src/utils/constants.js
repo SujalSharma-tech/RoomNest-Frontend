@@ -11,6 +11,7 @@ export const UPDATE_PASSWORD_ROUTE = `${AUTH_ROUTES}/updatepassword`;
 export const PRODUCT_ROUTES = "api/v1/listing";
 export const CREATE_PROPERTY = `${PRODUCT_ROUTES}/local`;
 export const GET_ALL_PROPERTIES_ROUTE = `${PRODUCT_ROUTES}/getlistings`;
+export const GET_PROPERTY_BY_ID = `${PRODUCT_ROUTES}/getpropertybyid`;
 export const GET_USER_PROPERTIES = `${PRODUCT_ROUTES}/getuserlistings`;
 export const GET_FILTERED_LISTINGS = `${PRODUCT_ROUTES}/filterlisting`;
 export const GET_SAVED_PROP_ID = `${PRODUCT_ROUTES}/getsavedproperties`;

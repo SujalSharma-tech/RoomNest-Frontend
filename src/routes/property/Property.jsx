@@ -8,6 +8,7 @@ import { useAppStore } from "../../store";
 import { Link } from "react-router-dom";
 import { GET_FILTERED_LISTINGS } from "../../utils/constants";
 import { apiClient } from "../../lib/api-client";
+import { CircleX, MapIcon } from "lucide-react";
 const Property = () => {
   const queryParams = new URLSearchParams(location.search);
   // const [data, setData] = useState([]);
@@ -89,6 +90,11 @@ const Property = () => {
     e.preventDefault();
     fetchFilteredProperties();
   };
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
+
+  const toggleMapModal = () => {
+    setIsMapModalOpen(!isMapModalOpen);
+  };
 
   return (
     <div className="property">
@@ -163,6 +169,14 @@ const Property = () => {
           </form>
         </div>
 
+        <div className="device-map-btn">
+          <div className="toggle-map-btn">
+            <button className="btn" onClick={toggleMapModal}>
+              <MapIcon />
+            </button>
+          </div>
+        </div>
+
         <div className="property-list">
           {filteredProperties?.length > 0 ? (
             filteredProperties.map((place, index) => {
@@ -180,6 +194,16 @@ const Property = () => {
       <div className="right">
         <SimpleMap properties={properties} />
       </div>
+      {isMapModalOpen && (
+        <div className="map-modal">
+          <div className="modal-content">
+            <button className="close-btn" onClick={toggleMapModal}>
+              <CircleX />
+            </button>
+            <SimpleMap properties={properties} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

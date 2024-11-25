@@ -12,14 +12,15 @@ import "swiper/css/scrollbar";
 import Itemcard from "../itemcard/Itemcard";
 import { useAppStore } from "../../store";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useState } from "react";
 const RecommendationSlider = () => {
   const { properties } = useAppStore();
 
   return (
     <Swiper
       modules={[Pagination, Scrollbar, A11y, Autoplay]}
-      spaceBetween={0}
+      spaceBetween={10}
       breakpoints={{
         240: {
           slidesPerView: 1,
@@ -50,8 +51,7 @@ const RecommendationSlider = () => {
               <Link
                 to={`/propertydetails/${property.id}`}
                 key={`${property.id}-${index}`}
-                onClick={() => console.log("Link clicked!")}
-                style={{ color: "black" }}
+                style={{ color: "black", margin: "5px" }}
               >
                 <Itemcard property={property} />
               </Link>

@@ -8,6 +8,7 @@ import {
   UPDATE_PROFILE_ROUTE,
 } from "../../utils/constants";
 import { apiClient } from "../../lib/api-client";
+import toast from "react-hot-toast";
 
 const PasswordModal = ({ isOpen, onClose }) => {
   const [passwordData, setPasswordData] = useState({
@@ -46,14 +47,15 @@ const PasswordModal = ({ isOpen, onClose }) => {
         },
         { withCredentials: true }
       );
-      if (data) {
-        console.log(data.data);
+      if (data.data.success) {
+        toast.success(data.data.message);
+      } else {
+        toast.err(data.data.message);
       }
     } catch (err) {
       console.error(err);
     }
 
-    console.log("Password update requested:", passwordData);
     setPasswordData({
       oldPassword: "",
       newPassword: "",
@@ -167,13 +169,11 @@ const ProfilePage = () => {
         { withCredentials: true }
       );
       if (data) {
-        console.log(data);
         setUserInfo(data.data.user);
       }
     } catch (err) {
       console.log(err);
     }
-    console.log(formData);
   };
   return userInfo ? (
     <div className="profile-page">

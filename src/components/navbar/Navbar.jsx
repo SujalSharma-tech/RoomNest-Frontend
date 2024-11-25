@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./Navbar.scss";
 import { useAppStore } from "../../store";
 import usericon from "./usericon.png";
@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { apiClient } from "../../lib/api-client";
 import { LOGOUT_ROUTE } from "../../utils/constants";
+import { Menu } from "lucide-react";
 
 function Navbar() {
   const [activeLink, setActiveLink] = useState("");
@@ -53,10 +54,24 @@ function Navbar() {
   const handleClick = (link) => {
     setActiveLink(link);
   };
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen((prev) => !prev);
+  };
+
+  const closeSidebar = () => {
+    setIsOpen(false);
+  };
+  const navigate = useNavigate();
 
   return (
     <nav className="navbar-main">
-      <div className="logo">
+      <div
+        className="logo"
+        onClick={() => navigate("/")}
+        style={{ cursor: "pointer" }}
+      >
         ROOM<span>NEST</span>
       </div>
       <ul className="nav-links">
@@ -109,33 +124,73 @@ function Navbar() {
           </Link>
         </li>
       </ul>
-      {userInfo ? (
-        <div className="user-profile-icon" onClick={handledropdown}>
-          <div className="icon">
-            <img src={usericon} alt="" />
-          </div>
-          <div className="user-profile-name">
-            <p>{userInfo.first_name}</p>
-          </div>
-          {isdropdownOpen && (
-            <div className="user-dropdown-options" ref={dropdownRef}>
-              <Link to="/profile">Profile</Link>
-              <Link to="/savedProperties">Saved Properties</Link>
-              <Link to="/listproperty">Create Listing</Link>
-              <div onClick={handleLogout}>Logout </div>
+      <div className="hamburger-user">
+        {userInfo ? (
+          <div className="user-profile-icon" onClick={handledropdown}>
+            <div className="icon">
+              <img src={usericon} alt="" />
             </div>
-          )}
+            <div className="user-profile-name">
+              <p>{userInfo.first_name}</p>
+            </div>
+            {isdropdownOpen && (
+              <div className="user-dropdown-options" ref={dropdownRef}>
+                <Link to="/profile">Profile</Link>
+                <Link to="/savedProperties">Saved Properties</Link>
+                <Link to="/listproperty">Create Listing</Link>
+                <div onClick={handleLogout}>Logout </div>
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="auth-links">
+            <Link to={"/signin"} className="signin">
+              Sign in
+            </Link>
+            <Link to={"/login"}>
+              <button className="login-btn">Login</button>
+            </Link>
+          </div>
+        )}
+        <div className="sidebar-toggle">
+          <button className="hamburger" onClick={toggleSidebar}>
+            <Menu />
+          </button>
         </div>
-      ) : (
-        <div className="auth-links">
-          <Link to={"/signin"} className="signin">
-            Sign in
-          </Link>
-          <Link to={"/login"}>
-            <button className="login-btn">Login</button>
-          </Link>
-        </div>
-      )}
+      </div>
+
+      <div className={`sidebar ${isOpen ? "open" : ""}`}>
+        <button className="close-btn" onClick={toggleSidebar}>
+          ✕
+        </button>
+        <nav>
+          <ul>
+            <li>
+              <Link to="/" onClick={closeSidebar}>
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link to="/listproperty" onClick={closeSidebar}>
+                List Property
+              </Link>
+            </li>
+            <li>
+              <Link to="/mylistings" onClick={closeSidebar}>
+                My Listings
+              </Link>
+            </li>
+            <li>
+              <Link to="/property" onClick={closeSidebar}>
+                Properties
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      {/* Overlay */}
+      {isOpen && <div className="overlay" onClick={closeSidebar}></div>}
     </nav>
   );
 }

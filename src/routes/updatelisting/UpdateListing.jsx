@@ -5,29 +5,90 @@ import {
   useLoadScript,
   Autocomplete,
 } from "@react-google-maps/api";
-import { useMemo, useRef, useState } from "react";
-import "./listproperty.scss";
+import { useEffect, useMemo, useRef, useState } from "react";
+import "./updatelisting.scss";
 import homeaddress from "../../assets/home-address.png";
 import axios from "axios";
-import { CircleX, Loader, MapIcon } from "lucide-react";
+import { Loader } from "lucide-react";
 import { useAppStore } from "../../store";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router";
-import { CREATE_PROPERTY } from "../../utils/constants";
+import { useNavigate, useParams } from "react-router";
+import { CREATE_PROPERTY, GET_PROPERTY_BY_ID } from "../../utils/constants";
 import { apiClient } from "../../lib/api-client";
 // import placedata from "./placedata.json";
 // const libraries = ["places"];
-const ListProperty = () => {
-  // const { isLoaded } = useLoadScript({
-  //   googleMapsApiKey: "AIzaSyBdPDiqHlsiyUGU9jTvCTMaRx08Pl0fKMw",
-  //   libraries,
-  // });
+const UpdateListing = () => {
   const { isLoadingMaps } = useAppStore();
 
   const mapRef = useRef(null);
   const autocompleteRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const center = useMemo(() => ({ lat: 31.2232, lng: 75.767 }), []);
+
+  const [property, setProperty] = useState({});
+  const { id } = useParams();
+  const [title, setTitle] = useState("");
+  const [price, setPrice] = useState("");
+  const [deposit, setDeposit] = useState("");
+  const [address, setAddress] = useState("");
+  const [description, setDescription] = useState("");
+  const [city, setCity] = useState("");
+  const [bedrooms, setBedrooms] = useState("");
+  const [bathrooms, setBathrooms] = useState("");
+  const [propertyType, setPropertyType] = useState("privateroom");
+  const [listingType, setListingType] = useState("rent");
+  const [responsibility, setResponsibility] = useState("owner");
+  const [petAllowed, setPetAllowed] = useState(false);
+  const [wifiAvailable, setWifiAvailable] = useState(false);
+  const [laundryAvailable, setLaundryAvailable] = useState(false);
+  const [parking, setParking] = useState(false);
+  const [furnished, setFurnished] = useState(false);
+  const [utilitiesAvailable, setUtilitiesAvailable] = useState(false);
+  const [addToMap, setAddToMap] = useState(false);
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    const getPropertyById = async () => {
+      try {
+        const response = await apiClient.post(
+          GET_PROPERTY_BY_ID,
+          { property_id: id },
+          { withCredentials: true }
+        );
+        if (response.data.success) {
+          setProperty(response.data.listing);
+          const listing = response.data.listing;
+          setTitle(listing?.title || "");
+          setPrice(listing?.rent || "");
+          setDeposit(listing?.deposit || "");
+          setAddress(listing?.address || "");
+          setDescription(listing?.description || "");
+          setCity(listing?.city || "");
+          setPropertyType(listing?.property_type || "privateroom");
+          setBedrooms(listing?.no_of_rooms || "");
+          setPetAllowed(listing?.pets_allowed || false);
+          setWifiAvailable(listing?.wifi || false);
+          setParking(listing?.parking || false);
+          setFurnished(listing?.furnished || false);
+          setMarkerPosition({
+            lat: Number(listing?.latitude) || "",
+            lng: Number(listing?.longitude) || "",
+          });
+          setLatitude(listing?.latitude || "");
+          setLongitude(listing?.longitude || "");
+          setLaundryAvailable(listing?.laundry || "");
+          setUtilitiesAvailable(listing?.utensils_included || "");
+          setAddToMap(listing?.maps_included || false);
+        }
+      } catch (err) {
+        console.log(err);
+      }
+    };
+
+    getPropertyById();
+  }, []);
 
   const [markerPosition, setMarkerPosition] = useState({
     lat: 31.2232,
@@ -64,7 +125,6 @@ const ListProperty = () => {
           const { latitude, longitude } = position.coords;
           const newPosition = { lat: latitude, lng: longitude };
           setMarkerPosition(newPosition);
-
           if (mapRef.current) {
             mapRef.current.panTo(newPosition);
             mapRef.current.setZoom(16);
@@ -87,28 +147,6 @@ const ListProperty = () => {
     setMarkerPosition(clickedPosition);
   };
 
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState("");
-  const [deposit, setDeposit] = useState("");
-  const [address, setAddress] = useState("");
-  const [description, setDescription] = useState("");
-  const [city, setCity] = useState("");
-  const [bedrooms, setBedrooms] = useState("");
-  const [bathrooms, setBathrooms] = useState("");
-  const [propertyType, setPropertyType] = useState("privateroom");
-  const [listingType, setListingType] = useState("rent");
-  const [responsibility, setResponsibility] = useState("owner");
-  const [petAllowed, setPetAllowed] = useState(false);
-  const [wifiAvailable, setWifiAvailable] = useState(false);
-  const [laundryAvailable, setLaundryAvailable] = useState(false);
-  const [parking, setParking] = useState(false);
-  const [furnished, setFurnished] = useState(false);
-  const [utilitiesAvailable, setUtilitiesAvailable] = useState(false);
-  const [addToMap, setAddToMap] = useState(false);
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
-  const [images, setImages] = useState([]);
-
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     const newImages = files.map((file) => ({
@@ -127,6 +165,7 @@ const ListProperty = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Create form data
     const formData = new FormData();
     formData.append("title", title);
     formData.append("price", price);
@@ -161,11 +200,12 @@ const ListProperty = () => {
       const response = await apiClient.post(CREATE_PROPERTY, formData, {
         withCredentials: true,
       });
-      console.log(response);
       if (response.data.success) {
         toast.success(response.data.message);
         setLoading(false);
         navigate("/property");
+      } else {
+        toast.error(response.data.message);
       }
     } catch (err) {
       console.error(err);
@@ -173,41 +213,10 @@ const ListProperty = () => {
       setLoading(false);
     }
   };
-  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
-  const toggleMapModal = () => {
-    setIsMapModalOpen(!isMapModalOpen);
-  };
-
-  return (
+  return property && property?.title ? (
     <div className="add-post">
       <div className="form-container">
-        <div className="image-upload-container">
-          <label htmlFor="imageInput" className="upload-btn">
-            Upload Images
-          </label>
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            multiple
-            onChange={handleImageUpload}
-            style={{ display: "none" }}
-          />
-        </div>
-        <div className="image-preview-container">
-          {images.map((image, index) => (
-            <div key={index} className="image-preview">
-              <img src={image.preview} alt={`preview-${index}`} />
-              <div
-                className="delete-overlay"
-                onClick={() => handleDeleteImage(index)}
-              >
-                Delete
-              </div>
-            </div>
-          ))}
-        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <input
@@ -308,17 +317,6 @@ const ListProperty = () => {
                     onChange={(e) => setLongitude(e.target.value)}
                   />
                 </div>
-                <div className="device-map-btn">
-                  <div className="toggle-map-btn">
-                    <button
-                      type="button"
-                      className="btn"
-                      onClick={() => toggleMapModal()}
-                    >
-                      <MapIcon />
-                    </button>
-                  </div>
-                </div>
               </div>
             )}
             <div className="option">
@@ -378,7 +376,7 @@ const ListProperty = () => {
           </div>
 
           <button type="submit" className="submit-btn">
-            {loading ? <Loader /> : "Submit"}
+            {loading ? <Loader /> : "Update Listing"}
           </button>
         </form>
       </div>
@@ -437,76 +435,10 @@ const ListProperty = () => {
           )}
         </div>
       </div>
-      {isMapModalOpen && (
-        <div className="map-modal">
-          <div className="modal-content">
-            <button className="close-btn" onClick={toggleMapModal}>
-              <CircleX />
-            </button>
-            <div className="map-container-sm">
-              <div
-                className="App"
-                style={{ height: "100vh", width: "100%", position: "relative" }}
-              >
-                {!isLoadingMaps ? (
-                  <h1>Loading...</h1>
-                ) : (
-                  <div style={{ height: "90%", width: "100%" }}>
-                    <Autocomplete
-                      onLoad={(autocomplete) =>
-                        (autocompleteRef.current = autocomplete)
-                      }
-                      onPlaceChanged={handlePlaceSelect}
-                    >
-                      <input
-                        type="text"
-                        placeholder="Search for a place"
-                        style={{
-                          position: "absolute",
-                          top: "60px",
-                          left: "10px",
-                          zIndex: 1000,
-                          width: "300px",
-                          padding: "10px",
-                          border: "1px solid #ccc",
-                          borderRadius: "5px",
-                          boxShadow: "0 2px 6px rgba(0,0,0,0.3)",
-                        }}
-                      />
-                    </Autocomplete>
-                    <GoogleMap
-                      mapContainerClassName="map-container-sm"
-                      center={center}
-                      zoom={15}
-                      onLoad={(map) => (mapRef.current = map)}
-                      onClick={handleMapClick}
-                      mapContainerStyle={{ height: "100%" }}
-                    >
-                      <MarkerF
-                        position={markerPosition}
-                        draggable={true}
-                        onDragEnd={handleMarkerDragEnd}
-                        icon={{
-                          url: homeaddress,
-                          scaledSize: new window.google.maps.Size(50, 50),
-                        }}
-                      />
-                    </GoogleMap>
-                    <button
-                      className="current-loc-btn"
-                      onClick={handleAddCurrentLocation}
-                    >
-                      Add Current location
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
+  ) : (
+    <h1>No data found</h1>
   );
 };
 
-export default ListProperty;
+export default UpdateListing;

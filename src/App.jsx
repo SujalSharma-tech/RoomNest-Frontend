@@ -28,6 +28,7 @@ import {
   GET_SAVED_PROP_ID,
   GET_USER_INFO,
 } from "./utils/constants";
+import UpdateListing from "./routes/updatelisting/UpdateListing";
 const libraries = ["places"];
 function App() {
   const {
@@ -169,7 +170,6 @@ function App() {
             path: "/login",
             element: (
               <AuthRoute>
-                {/* <LoginPage /> */}
                 <Login />
               </AuthRoute>
             ),
@@ -178,7 +178,6 @@ function App() {
             path: "/signin",
             element: (
               <AuthRoute>
-                {/* <SignupPage /> */}
                 <SignUp />
               </AuthRoute>
             ),
@@ -216,12 +215,8 @@ function App() {
             ),
           },
           {
-            path: "/authpage",
-            element: <SignUp />,
-          },
-          {
-            path: "/authpagelogin",
-            element: <Login />,
+            path: "/updatelisting/:id",
+            element: <UpdateListing />,
           },
         ],
       },

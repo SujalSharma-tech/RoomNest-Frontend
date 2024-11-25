@@ -1,5 +1,4 @@
 /* eslint-disable react/prop-types */
-import axios from "axios";
 import { useAppStore } from "../../store";
 import "./itemcard.scss";
 import { Bookmark, Share } from "lucide-react";
@@ -11,7 +10,6 @@ const Itemcard = ({ property }) => {
   const { savedProperties, setSavedProperties, userInfo } = useAppStore();
 
   const isSaved = savedProperties?.includes(property.id);
-  
   const image = JSON.parse(property?.additional_photos)?.[0];
   const toggleSaveProperty = async (e, propertyId) => {
     e.preventDefault();

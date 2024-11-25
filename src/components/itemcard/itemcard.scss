@@ -19,7 +19,7 @@
   }
 
   @include device.sm {
-    width: 170px;
+    width: 160px;
     padding: 4px 8px;
   }
 
@@ -97,6 +97,9 @@
 
   .item-category {
     font-size: 14px;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: #6c757d;
     @include device.sm {
       font-size: 12px;

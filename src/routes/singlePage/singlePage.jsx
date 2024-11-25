@@ -1,25 +1,17 @@
 import "./singlePage.scss";
 import Slider from "../../components/slider/Slider";
-// import Map from "../../components/map/Map";
 import { useParams } from "react-router-dom";
 import DOMPurify from "dompurify";
 
-// import apiRequest from "../../lib/apiRequest";
 import { useAppStore } from "../../store";
 import SimpleMap from "../../components/mapcomponent/SimpleMap";
 import { useEffect, useState } from "react";
 
 function SinglePage() {
-  // const post = useLoaderData();
-  // const [saved, setSaved] = useState(post.isSaved);
-  // const { currentUser } = useContext(AuthContext);
-  console.log("reached page");
   const { userInfo, properties } = useAppStore();
-  console.log(properties);
   const [property, setProperty] = useState({});
   // const navigate = useNavigate();
   const { id } = useParams();
-  console.log(id);
   useEffect(() => {
     const filteredProperty = properties.filter((property) => property.id == id);
     setProperty(filteredProperty);

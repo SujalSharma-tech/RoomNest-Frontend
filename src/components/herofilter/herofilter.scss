@@ -153,12 +153,13 @@
     max-width: 600px;
 
     .filters {
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
       align-items: stretch;
 
       .filter,
       .search-button {
-        width: 100%;
+        width: 130px;
         margin-bottom: 12px;
       }
 
@@ -180,12 +181,13 @@
     }
 
     .filters {
-      flex-direction: column;
+      flex-direction: row;
+      flex-wrap: wrap;
       align-items: stretch;
       gap: 10px;
 
       .filter {
-        width: 100%;
+        width: 130px;
       }
 
       .search-button {

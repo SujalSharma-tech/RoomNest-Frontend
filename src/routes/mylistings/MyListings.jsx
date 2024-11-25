@@ -1,10 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppStore } from "../../store";
 import "./mylistings.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { apiClient } from "../../lib/api-client";
-import { CHANGE_STATUS, GET_USER_PROPERTIES } from "../../utils/constants";
+import {
+  CHANGE_STATUS,
+  DELETE_PROPERTY,
+  GET_USER_PROPERTIES,
+} from "../../utils/constants";
+import toast from "react-hot-toast";
 const MyListings = () => {
   const [listings, setListings] = useState({});
   const { userInfo, setUserInfo } = useAppStore();
@@ -55,8 +60,6 @@ const MyListings = () => {
           : listing
       );
 
-      // You can log here if you want to check the updated state
-      console.log(updatedListings);
       handleStatusChange(id, updatedListings);
       return updatedListings;
     });
@@ -64,12 +67,16 @@ const MyListings = () => {
 
   const handleDeleteListing = async (id) => {
     try {
-      const data = await post(
-        "http://localhost/roomnestserver/index.php/api/v1/listing/deletelisting",
+      const data = await apiClient(
+        DELETE_PROPERTY,
         { id: id },
         { withCredentials: true }
       );
-      console.log(data);
+      if (data.data.success) {
+        toast.success(data.data.message);
+      } else {
+        toast.error(data.data.message);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -82,9 +89,11 @@ const MyListings = () => {
     );
     handleDeleteListing(id);
   };
+  const navigate = useNavigate();
 
-  const editListing = (id) => {
-    alert(`Edit feature for Listing ID: ${id} coming soon!`);
+  const editListing = (e, id) => {
+    e.preventDefault();
+    navigate("/updatelisting/" + id);
   };
   function timeAgo(dateString) {
     const now = new Date();
@@ -147,7 +156,7 @@ const MyListings = () => {
                   </button>
                   <button
                     className="edit-listing"
-                    onClick={() => editListing(listing.id)}
+                    onClick={(e) => editListing(e, listing.id)}
                   >
                     Modify
                   </button>

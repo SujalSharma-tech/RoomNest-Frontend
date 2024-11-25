@@ -252,6 +252,8 @@ const Login = () => {
         localStorage.setItem("isAuth", true);
         console.log(data.data.user);
         navigate(from, { replace: true });
+      } else {
+        toast.error(data.data.message);
       }
     } catch (err) {
       console.log(err);
