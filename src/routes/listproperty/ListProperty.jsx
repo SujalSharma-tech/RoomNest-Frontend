@@ -165,7 +165,7 @@ const ListProperty = () => {
     });
     try {
       setLoading(true);
-      const response = await apiClient.post(CREATE_PRODUCT_ROUTE, formData, {
+      const response = await apiClient.post(CREATE_PROPERTY, formData, {
         withCredentials: true,
       });
       console.log(response);
