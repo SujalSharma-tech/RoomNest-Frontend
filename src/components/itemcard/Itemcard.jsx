@@ -11,7 +11,8 @@ const Itemcard = ({ property }) => {
   const { savedProperties, setSavedProperties, userInfo } = useAppStore();
 
   const isSaved = savedProperties?.includes(property.id);
-  const image = JSON.parse(property?.additional_photos)[0];
+  
+  const image = JSON.parse(property?.additional_photos)?.[0];
   const toggleSaveProperty = async (e, propertyId) => {
     e.preventDefault();
     e.stopPropagation();
