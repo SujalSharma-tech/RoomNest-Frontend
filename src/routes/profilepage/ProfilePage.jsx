@@ -50,7 +50,7 @@ const PasswordModal = ({ isOpen, onClose }) => {
       if (data.data.success) {
         toast.success(data.data.message);
       } else {
-        toast.err(data.data.message);
+        toast.error(data.data.message);
       }
     } catch (err) {
       console.error(err);
@@ -168,8 +168,11 @@ const ProfilePage = () => {
         },
         { withCredentials: true }
       );
-      if (data) {
+      if (data.data.success) {
         setUserInfo(data.data.user);
+        toast.success(data.data.message);
+      } else {
+        toast.error(data.data.message);
       }
     } catch (err) {
       console.log(err);
