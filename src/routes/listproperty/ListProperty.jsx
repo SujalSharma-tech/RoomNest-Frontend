@@ -193,6 +193,7 @@ const ListProperty = () => {
             multiple
             onChange={handleImageUpload}
             style={{ display: "none" }}
+            required
           />
         </div>
         <div className="image-preview-container">
@@ -215,16 +216,20 @@ const ListProperty = () => {
               placeholder="Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
             <input
               type="number"
               placeholder="Price"
+              min={0}
               value={price}
               onChange={(e) => setPrice(e.target.value)}
+              required
             />
             <input
               type="number"
               placeholder="Deposit"
+              min={0}
               value={deposit}
               onChange={(e) => setDeposit(e.target.value)}
             />
@@ -233,12 +238,14 @@ const ListProperty = () => {
               placeholder="Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              required
             />
           </div>
           <textarea
             placeholder="Description"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
+            required
           ></textarea>
           <div className="form-row">
             <input
@@ -246,12 +253,14 @@ const ListProperty = () => {
               placeholder="City"
               value={city}
               onChange={(e) => setCity(e.target.value)}
+              required
             />
             <input
               type="number"
               placeholder="Bedroom Number"
               value={bedrooms}
               onChange={(e) => setBedrooms(e.target.value)}
+              required
             />
             <input
               type="number"

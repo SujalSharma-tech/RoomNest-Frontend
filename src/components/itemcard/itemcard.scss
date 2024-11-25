@@ -19,7 +19,7 @@
   }
 
   @include device.sm {
-    width: 160px;
+    width: 170px;
     padding: 4px 8px;
   }
 
@@ -109,6 +109,9 @@
   .item-price {
     font-size: 20px;
     font-weight: 600;
+    white-space: pre;
+    overflow: hidden;
+    text-overflow: ellipsis;
     @include device.xs {
       font-size: 16px;
     }
