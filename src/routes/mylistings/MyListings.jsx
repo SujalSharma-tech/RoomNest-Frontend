@@ -67,7 +67,7 @@ const MyListings = () => {
 
   const handleDeleteListing = async (id) => {
     try {
-      const data = await apiClient(
+      const data = await apiClient.post(
         DELETE_PROPERTY,
         { id: id },
         { withCredentials: true }
