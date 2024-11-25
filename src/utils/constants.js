@@ -18,7 +18,6 @@ export const GET_ALL_SAVED_PROP = `${PRODUCT_ROUTES}/getallsavedproperties`;
 export const DELETE_PROPERTY = `${PRODUCT_ROUTES}/deletelisting`;
 export const CHANGE_STATUS = `${PRODUCT_ROUTES}/changestatus`;
 export const TOGGLE_STATUS = `${PRODUCT_ROUTES}/togglesaveproperty`;
-export const CREATE_PRODUCT_ROUTE = `${PRODUCT_ROUTES}/createproduct`;
 export const SEARCH_PRODUCT_ROUTE = `${PRODUCT_ROUTES}/searchproduct`;
 
 export const CLODUINARY_LINK = `https://res.cloudinary.com/dxnb4inln/image/upload/v1731164423/`;

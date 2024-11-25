@@ -13,7 +13,7 @@ import { Loader } from "lucide-react";
 import { useAppStore } from "../../store";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
-import { CREATE_PRODUCT_ROUTE } from "../../utils/constants";
+import { CREATE_PRODUCT_ROUTE, CREATE_PROPERTY } from "../../utils/constants";
 import { apiClient } from "../../lib/api-client";
 // import placedata from "./placedata.json";
 // const libraries = ["places"];
@@ -165,7 +165,7 @@ const ListProperty = () => {
     });
     try {
       setLoading(true);
-      const response = await apiClient.post(CREATE_PRODUCT_ROUTE, formData, {
+      const response = await apiClient.post(CREATE_PROPERTY, formData, {
         withCredentials: true,
       });
       console.log(response);
