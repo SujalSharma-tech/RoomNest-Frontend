@@ -181,7 +181,7 @@ const Property = () => {
           {filteredProperties?.length > 0 ? (
             filteredProperties.map((place, index) => {
               return (
-                <Link key={index} to={`/propertydetails/${place.id}`}>
+                <Link key={index} to={`/propertydetails/${place._id}`}>
                   <PropertyCard place={place} />
                 </Link>
               );

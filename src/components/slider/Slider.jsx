@@ -3,8 +3,6 @@ import { useState } from "react";
 import "./slider.scss";
 
 function Slider({ images }) {
-  images = JSON.parse(images);
-
   const [imageIndex, setImageIndex] = useState(null);
 
   const changeSlide = (direction) => {

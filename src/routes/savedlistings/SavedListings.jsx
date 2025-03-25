@@ -33,7 +33,7 @@ const SavedListings = () => {
         {savedListings && savedListings.length > 0 ? (
           savedListings.map((listing, index) => {
             return (
-              <Link to={`/propertydetails/${listing.id}`} key={index}>
+              <Link to={`/propertydetails/${listing._id}`} key={index}>
                 <PropertyCard place={listing} />
               </Link>
             );

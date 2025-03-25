@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAppStore } from "../../store";
 import "./mylistings.scss";
 import { useEffect, useState } from "react";
-import axios from "axios";
+
 import { apiClient } from "../../lib/api-client";
 import {
   CHANGE_STATUS,
@@ -32,10 +32,10 @@ const MyListings = () => {
   }, [userInfo, setUserInfo]);
 
   const handleStatusChange = async (id, updatedListings) => {
-    const status = updatedListings.filter((listing) => listing.id == id);
+    const status = updatedListings.filter((listing) => listing._id == id);
 
     try {
-      const data = await apiClient.post(
+      const data = await apiClient.put(
         CHANGE_STATUS,
         { id: id, status: status[0].is_active },
         { withCredentials: true }
@@ -55,7 +55,7 @@ const MyListings = () => {
     setListings((prevListings) => {
       // Update the local state
       const updatedListings = prevListings.map((listing) =>
-        listing.id === id
+        listing._id === id
           ? { ...listing, is_active: listing.is_active === 1 ? 0 : 1 }
           : listing
       );
@@ -130,17 +130,17 @@ const MyListings = () => {
       <div className="listings-container">
         {listings && listings.length > 0 ? (
           listings.map((listing) => (
-            <Link key={listing.id} to={"/propertydetails/" + listing.id}>
+            <Link key={listing.id} to={"/propertydetails/" + listing._id}>
               <div className="listing-card">
                 {
                   <img
-                    src={JSON.parse(listing.additional_photos)[0]}
+                    src={listing.additional_photos[0]}
                     alt={listing.title}
                     className="listing-image"
                   />
                 }
                 <div className="listing-info">
-                  <p>{timeAgo(listing.created_at)}</p>
+                  <p>{timeAgo(listing.createdAt)}</p>
                   <h2>{listing.title}</h2>
                   <p>{listing.address}</p>
                   <p>₹ {listing.rent.toLocaleString()}</p>
@@ -150,19 +150,19 @@ const MyListings = () => {
                     className={`toggle-status ${
                       listing.is_active ? "active" : "inactive"
                     }`}
-                    onClick={(e) => toggleListingStatus(e, listing.id)}
+                    onClick={(e) => toggleListingStatus(e, listing._id)}
                   >
                     {listing.is_active ? "Active" : "Disabled"}
                   </button>
                   <button
                     className="edit-listing"
-                    onClick={(e) => editListing(e, listing.id)}
+                    onClick={(e) => editListing(e, listing._id)}
                   >
                     Modify
                   </button>
                   <button
                     className="delete-listing"
-                    onClick={(e) => deleteListing(e, listing.id)}
+                    onClick={(e) => deleteListing(e, listing._id)}
                   >
                     Delete
                   </button>

@@ -156,7 +156,7 @@ const ProfilePage = () => {
   const handleformsubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await apiClient.post(
+      const data = await apiClient.put(
         UPDATE_PROFILE_ROUTE,
         {
           first_name: formData.firstName,

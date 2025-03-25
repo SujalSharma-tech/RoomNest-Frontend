@@ -44,9 +44,9 @@ const PropertyCard = ({ place }) => {
   //   );
   const { savedProperties, setSavedProperties, userInfo } = useAppStore();
 
-  const isSaved = savedProperties?.includes(place.id);
+  const isSaved = savedProperties?.includes(place._id);
 
-  const images = JSON.parse(place.additional_photos);
+  const images = place.additional_photos;
   function timeAgo(dateString) {
     const now = new Date();
 
@@ -92,7 +92,6 @@ const PropertyCard = ({ place }) => {
           const updatedState = prev.includes(propertyId)
             ? prev.filter((id) => id !== propertyId)
             : [...prev, propertyId];
-          console.log("Updated state:", updatedState);
           return updatedState;
         });
       } else {
@@ -115,7 +114,7 @@ const PropertyCard = ({ place }) => {
       <div className="details-section">
         <div className="details">
           <div className="date">
-            <p>{timeAgo(place.created_at)}</p>
+            <p>{timeAgo(place.createdAt)}</p>
           </div>
           <h2 className="property-title">
             {/* A Great Apartment Next to the Beach! */}
@@ -134,7 +133,9 @@ const PropertyCard = ({ place }) => {
               <div className="text"> bedroom</div>
             </span>
             <span className="info-item">
-              <Bath />1<div className="text"> bathroom</div>
+              <Bath />
+              {place.no_of_bathrooms}
+              <div className="text"> bathroom</div>
             </span>
             {place.wifi ? (
               <span className="info-item">
@@ -173,7 +174,7 @@ const PropertyCard = ({ place }) => {
             {userInfo && (
               <button
                 className={`icon ${isSaved ? "saved" : ""}`}
-                onClick={(e) => toggleSaveProperty(e, place.id)}
+                onClick={(e) => toggleSaveProperty(e, place._id)}
               >
                 <Bookmark fill={`${isSaved ? "#ffb100" : "none"}`} />
               </button>

@@ -98,6 +98,7 @@ const ListProperty = () => {
   const [propertyType, setPropertyType] = useState("privateroom");
   const [listingType, setListingType] = useState("rent");
   const [responsibility, setResponsibility] = useState("owner");
+  const [phone, setPhone] = useState("");
   const [petAllowed, setPetAllowed] = useState(false);
   const [wifiAvailable, setWifiAvailable] = useState(false);
   const [laundryAvailable, setLaundryAvailable] = useState(false);
@@ -135,37 +136,51 @@ const ListProperty = () => {
     formData.append("description", description);
     formData.append("city", city);
     formData.append("bedrooms", bedrooms);
+    formData.append("phone", phone);
     formData.append("bathrooms", bathrooms);
     formData.append("propertyType", propertyType);
     formData.append("listingType", listingType);
     formData.append("responsibility", responsibility);
-    formData.append("petAllowed", petAllowed);
-    formData.append("wifiAvailable", wifiAvailable);
-    formData.append("laundryAvailable", laundryAvailable);
+    formData.append("pets_allowed", petAllowed);
+    formData.append("wifi", wifiAvailable);
+    formData.append("laundry", laundryAvailable);
     formData.append("parking", parking);
     formData.append("furnished", furnished);
-    formData.append("utilitiesAvailable", utilitiesAvailable);
-    formData.append("addToMap", addToMap);
+    formData.append("utilities_included", utilitiesAvailable);
+    formData.append("maps_included", addToMap);
 
     if (addToMap) {
       formData.append("latitude", markerPosition.lat);
       formData.append("longitude", markerPosition.lng);
     }
 
-    images.forEach((image, index) => {
-      formData.append(`images[${index}]`, image.file);
+    // images.forEach((image, index) => {
+    //   formData.append(`images[${index}]`, image.file);
+    // });
+    if (images.length == 0) {
+      toast.error("Please Upload an image.");
+      return;
+    }
+    images.forEach((image) => {
+      formData.append("images", image.file); // Use the same field name "images" for all files
     });
 
     try {
       setLoading(true);
       const response = await apiClient.post(CREATE_PROPERTY, formData, {
         withCredentials: true,
+        headers: {
+          "Content-Type": "multipart/form-data", // Important for sending FormData
+        },
       });
       console.log(response);
       if (response.data.success) {
         toast.success(response.data.message);
         setLoading(false);
         navigate("/property");
+      } else {
+        toast.error(response.data.message);
+        setLoading(false);
       }
     } catch (err) {
       console.error(err);
@@ -238,6 +253,19 @@ const ListProperty = () => {
               placeholder="Address"
               value={address}
               onChange={(e) => setAddress(e.target.value)}
+              required
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number (10 digit only)"
+              value={phone}
+              maxLength={10}
+              pattern="[0-9]{10}"
+              onChange={(e) => {
+                // Only allow numeric input
+                const numericValue = e.target.value.replace(/[^0-9]/g, "");
+                setPhone(numericValue);
+              }}
               required
             />
           </div>

@@ -13,7 +13,9 @@ function SinglePage() {
   // const navigate = useNavigate();
   const { id } = useParams();
   useEffect(() => {
-    const filteredProperty = properties.filter((property) => property.id == id);
+    const filteredProperty = properties.filter(
+      (property) => property._id == id
+    );
     setProperty(filteredProperty);
   }, [properties, id]);
 
@@ -52,11 +54,18 @@ function SinglePage() {
                 {/* <img src={post.user.avatar} alt="" /> */}
                 <p>Listed By</p>
                 <span>{userInfo?.first_name + " " + userInfo?.last_name}</span>
-                <button>Phone Number</button>
+                <div>
+                  {property[0]?.phone
+                    ? `+91 ${property[0].phone}`
+                    : "Contact No. Not provided"}
+                </div>
               </div>
             </div>
+            <div className="bottom">
+              <h2>Description</h2>
+            </div>
             <div
-              className="bottom"
+              style={{ marginTop: "10px" }}
               dangerouslySetInnerHTML={{
                 __html: DOMPurify.sanitize(property[0].description),
               }}
@@ -164,10 +173,17 @@ function SinglePage() {
               </div>
             </div>
           </div>
-          <p className="title">Location</p>
-          <div className="mapContainer">
-            <SimpleMap properties={property} />
-          </div>
+
+          {property[0].maps_included ? (
+            <>
+              <p className="title">Location</p>
+              <div className="mapContainer">
+                <SimpleMap properties={property} />
+              </div>
+            </>
+          ) : (
+            ""
+          )}
           {/* <div className="buttons">
             <button>
               <img src="/chat.png" alt="" />

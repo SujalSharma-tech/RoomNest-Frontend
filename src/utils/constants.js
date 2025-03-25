@@ -1,15 +1,17 @@
+export const HOST = "http://localhost:5000";
 // export const HOST = "http://localhost/roomnestserver/index.php";
-export const HOST = "https://api.roomnest.me/index.php";
+// export const HOST = "https://api.roomnest.me/index.php";
 export const AUTH_ROUTES = "api/v1/user";
 export const SIGNUP_ROUTE = `${AUTH_ROUTES}/register`;
 export const LOGIN_ROUTE = `${AUTH_ROUTES}/login`;
 export const GET_USER_INFO = `${AUTH_ROUTES}/getprofile`;
 export const LOGOUT_ROUTE = `${AUTH_ROUTES}/logout`;
-export const UPDATE_PROFILE_ROUTE = `${AUTH_ROUTES}/newupdateuser`;
+export const UPDATE_PROFILE_ROUTE = `${AUTH_ROUTES}/updateprofile`;
 export const UPDATE_PASSWORD_ROUTE = `${AUTH_ROUTES}/updatepassword`;
 
 export const PRODUCT_ROUTES = "api/v1/listing";
 export const CREATE_PROPERTY = `${PRODUCT_ROUTES}/local`;
+export const UPDATE_PROPERTY = `${PRODUCT_ROUTES}/updatelisting`;
 export const GET_ALL_PROPERTIES_ROUTE = `${PRODUCT_ROUTES}/getlistings`;
 export const GET_PROPERTY_BY_ID = `${PRODUCT_ROUTES}/getpropertybyid`;
 export const GET_USER_PROPERTIES = `${PRODUCT_ROUTES}/getuserlistings`;

@@ -40,8 +40,7 @@ const SimpleMap = ({ properties }) => {
           {properties &&
             properties.map((place, index) => {
               const image =
-                place?.additional_photos &&
-                JSON.parse(place?.additional_photos);
+                place?.additional_photos && place?.additional_photos;
               return (
                 <MarkerF
                   key={index}

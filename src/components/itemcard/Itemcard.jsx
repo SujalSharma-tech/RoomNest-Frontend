@@ -9,8 +9,8 @@ import { TOGGLE_STATUS } from "../../utils/constants";
 const Itemcard = ({ property }) => {
   const { savedProperties, setSavedProperties, userInfo } = useAppStore();
 
-  const isSaved = savedProperties?.includes(property.id);
-  const image = JSON.parse(property?.additional_photos)?.[0];
+  const isSaved = savedProperties?.includes(property._id);
+  const image = property?.additional_photos?.[0];
   const toggleSaveProperty = async (e, propertyId) => {
     e.preventDefault();
     e.stopPropagation();
@@ -58,7 +58,7 @@ const Itemcard = ({ property }) => {
           {userInfo && (
             <button
               className={`icon ${isSaved ? "saved" : ""}`}
-              onClick={(e) => toggleSaveProperty(e, property.id)}
+              onClick={(e) => toggleSaveProperty(e, property._id)}
             >
               <Bookmark fill={`${isSaved ? "#ffb100" : "none"}`} />
             </button>

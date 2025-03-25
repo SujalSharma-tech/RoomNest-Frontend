@@ -49,7 +49,7 @@ const RecommendationSlider = () => {
           return (
             <SwiperSlide key={index}>
               <Link
-                to={`/propertydetails/${property.id}`}
+                to={`/propertydetails/${property._id}`}
                 key={`${property.id}-${index}`}
                 style={{ color: "black", margin: "5px" }}
               >

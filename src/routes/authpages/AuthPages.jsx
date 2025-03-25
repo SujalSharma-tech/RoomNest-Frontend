@@ -60,7 +60,7 @@ const SignUp = () => {
     const isValid = Object.values(validations).every(Boolean);
 
     if (isValid) {
-      console.log("Form submitted:", formData);
+
       try {
         const data = await apiClient.post(
           SIGNUP_ROUTE,
@@ -73,7 +73,7 @@ const SignUp = () => {
           { withCredentials: true }
         );
         if (data.data.success) {
-          console.log(data);
+
           toast.success("User Signup success");
           setUserInfo(data.data.user);
           if (window.history.state && window.history.state.idx > 0) {
@@ -219,7 +219,6 @@ const Login = () => {
   const location = useLocation();
 
   const from = location.state?.from?.pathname || "/";
-  console.log(from);
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
@@ -250,7 +249,6 @@ const Login = () => {
         setUserInfo(data.data.user);
         toast.success("User login success");
         localStorage.setItem("isAuth", true);
-        console.log(data.data.user);
         navigate(from, { replace: true });
       } else {
         toast.error(data.data.message);
