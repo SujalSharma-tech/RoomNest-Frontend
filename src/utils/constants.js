@@ -1,4 +1,4 @@
-export const HOST = "http://localhost:5000";
+export const HOST = "https://roomnest-backend-5e4c021da45f.herokuapp.com";
 // export const HOST = "http://localhost/roomnestserver/index.php";
 // export const HOST = "https://api.roomnest.me/index.php";
 export const AUTH_ROUTES = "api/v1/user";
